@@ -10,9 +10,14 @@ ChainGuard Escrow is a decentralized application (dApp) built on the Ethereum bl
 - Real-time updates on escrow status
 - Responsive design with smooth animations for an enhanced user experience
 
+## Planned Features
+
+- "Dead man's switch" custodial solution.
+- Multisignature wallet
+
 ## Screenshot
-![Screenshot 1](assets/home.png)
-![Screenshot 2](assets/escrow.png)
+![Screenshot 1](src/assets/home.png)
+![Screenshot 2](src/assets/escrow.png)
 
 ## Prerequisites
 
