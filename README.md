@@ -1,70 +1,86 @@
-# Getting Started with Create React App
+# ChainGuard Escrow
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+ChainGuard Escrow is a decentralized application (dApp) built on the Ethereum blockchain that provides a secure and transparent way to manage escrow transactions. It leverages smart contracts to automate the escrow process, ensuring trust and efficiency in digital transactions.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Create escrow contracts with specified arbiter, beneficiary, and amount
+- Approve escrow to release funds to the beneficiary
+- Refund escrow to return funds to the depositor
+- Real-time updates on escrow status
+- Responsive design with smooth animations for an enhanced user experience
 
-### `npm start`
+## Screenshot
+![Screenshot 1](assets/home.png)
+![Screenshot 2](assets/escrow.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Prerequisites
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Before you begin, ensure you have met the following requirements:
 
-### `npm test`
+- Node.js (v14.0.0 or later)
+- npm (v6.0.0 or later)
+- EVM web3 browser wallet extension
+- Some Sepolia testnet ETH for deploying contracts and making transactions
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Setup and Installation
 
-### `npm run build`
+1. Clone the repository:
+   ```
+   git clone https://github.com/yourusername/chainguard-escrow.git
+   cd chainguard-escrow
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Install dependencies:
+   ```
+   npm install
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. Create a `.env` file in the root directory and add your Sepolia RPC URL and private key:
+   ```
+   SEPOLIA_RPC_URL=your_sepolia_rpc_url
+   PRIVATE_KEY=your_private_key
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4. Compile the smart contracts:
+   ```
+   npx hardhat compile
+   ```
 
-### `npm run eject`
+5. Deploy the EscrowFactory contract to Sepolia:
+   ```
+   npx hardhat run scripts/deploy.js --network sepolia
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+6. Update the `factoryAddress` in `src/services/Web3Service.js` with the deployed EscrowFactory address.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+7. Start the development server:
+   ```
+   npm start
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Usage
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. Connect your MetaMask wallet to the Sepolia testnet.
+2. Click "Connect Wallet" in the app to connect your MetaMask account.
+3. To create a new escrow:
+   - Click "New Escrow"
+   - Enter the arbiter address, beneficiary address, and amount
+   - Click "Create Escrow"
+4. To approve or refund an escrow:
+   - Find the escrow in the list
+   - Click "Approve" to release funds to the beneficiary
+   - Click "Refund" to return funds to the depositor
 
-## Learn More
+## Technologies Used
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- React.js
+- Ethers.js
+- Hardhat
+- Solidity
+- Framer Motion
+- Tailwind CSS
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## License
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
