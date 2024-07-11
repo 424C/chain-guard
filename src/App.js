@@ -4,6 +4,7 @@ import LandingPage from './components/LandingPage';
 import EscrowApp from './components/EscrowApp';
 import LearnMorePage from './components/LearnMorePage';
 import AboutPage from './components/AboutPage';
+import CustodyApp from './components/CustodyApp';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/app" element={<EscrowApp />} />
+        <Route path="/custody" element={<CustodyApp />} />
         <Route path="/learn-more" element={<LearnMorePage />} />
         <Route path="/about" element={<AboutPage />} />
       </Routes>

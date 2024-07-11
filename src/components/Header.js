@@ -68,12 +68,12 @@ function Header() {
                   >
                     <ul>
                       <li>
-                        <Link to="/services/escrow" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-300">
+                        <Link to="/app" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-300">
                           Escrow
                         </Link>
                       </li>
                       <li>
-                        <Link to="/services/custody" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-300">
+                        <Link to="/custody" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-300">
                           Custody
                         </Link>
                       </li>
@@ -106,8 +106,8 @@ function Header() {
                 </button>
                 {isServicesOpen && (
                   <ul className="ml-4 mt-2 space-y-2">
-                    <li><Link to="/services/escrow" className="block hover:text-[#00838f] transition duration-300" onClick={toggleMenu}>Escrow</Link></li>
-                    <li><Link to="/services/custody" className="block hover:text-[#00838f] transition duration-300" onClick={toggleMenu}>Custody</Link></li>
+                    <li><Link to="/app" className="block hover:text-[#00838f] transition duration-300" onClick={toggleMenu}>Escrow</Link></li>
+                    <li><Link to="/custody" className="block hover:text-[#00838f] transition duration-300" onClick={toggleMenu}>Custody</Link></li>
                     <li><Link to="/services/multisig" className="block hover:text-[#00838f] transition duration-300" onClick={toggleMenu}>MultiSig</Link></li>
                   </ul>
                 )}

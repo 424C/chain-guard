@@ -1,34 +1,58 @@
-# ChainGuard Escrow
+# ChainGuard
 
-ChainGuard Escrow is a decentralized application (dApp) built on the Ethereum blockchain that provides a secure and transparent way to manage escrow transactions. It leverages smart contracts to automate the escrow process, ensuring trust and efficiency in digital transactions.
+ChainGuard is a decentralized application built on the Ethereum blockchain that provides a secure and transparent way to manage escrow transactions. It leverages immutable smart contracts to automate the process, ensuring trust and efficiency in digital transactions.
 
-## Features
+ChainGuard is currently in development and is not yet ready for production use.
+
+## Escrow Service
+
+Used for creating escrow contracts with a specified arbiter, beneficiary, and amount. Use cases include escrow agreements, contractual agreements, or any other agreement where the arbiter is responsible for the release of funds to the beneficiary.
 
 - Create escrow contracts with specified arbiter, beneficiary, and amount
 - Approve escrow to release funds to the beneficiary
 - Refund escrow to return funds to the depositor
 - Real-time updates on escrow status
-- Responsive design with smooth animations for an enhanced user experience
 
-## Planned Features
+## Custody Service
 
-- "Dead man's switch" custodial solution.
-- Multisignature wallet
+Used for creating custody contracts with a specified beneficiary, amount, and duration. Use cases typically include vesting or trust distributions.
+
+- Create custody contracts with specified beneficiary and amount
+- Lock funds for a specified duration
+- Release funds to the beneficiary after the duration has passed
+- Real-time updates on custody status (WIP)
 
 ## Screenshot
 ![Screenshot 1](src/assets/home.png)
 ![Screenshot 2](src/assets/escrow.png)
 
+## Sepolia Deployment
+- [EscrowFactory](https://sepolia.etherscan.io/address/0x447e9BBfE5010BeF5460De7e4eCcAE186a9cf78c)
+- [TimeLockFactory](https://sepolia.etherscan.io/address/0x3E23F35b523C61af24255F1F81db6A6E26FbAcac)
+
+
 ## Prerequisites
+- EVM web3 browser wallet extension, such as Metamask or Coinbase wallet.
+- Some Sepolia testnet ETH for deploying contracts and making transactions. Testnet ETH can be obtained from [Faucets](https://cloud.google.com/application/web3/faucet/ethereum/sepolia).
 
-Before you begin, ensure you have met the following requirements:
+## Usage
 
-- Node.js (v14.0.0 or later)
-- npm (v6.0.0 or later)
-- EVM web3 browser wallet extension
-- Some Sepolia testnet ETH for deploying contracts and making transactions
+1. Connect your MetaMask wallet to the Sepolia testnet.
+2. Click "Connect Wallet" in the app to connect your MetaMask account.
+3. To create a new escrow:
+   - Click "New Escrow"
+   - Enter the arbiter address, beneficiary address, and amount
+   - Click "Create Escrow"
+4. To approve or refund an escrow:
+   - Find the escrow in the list
+   - Click "Approve" to release funds to the beneficiary
+   - Click "Refund" to return funds to the depositor
+5. To create a new custody:
+   - Click "New Custody"
+   - Enter the beneficiary address and amount
+   - Click "Create Custody"
 
-## Setup and Installation
+## Local Development Setup
 
 1. Clone the repository:
    ```
@@ -63,19 +87,6 @@ Before you begin, ensure you have met the following requirements:
    ```
    npm start
    ```
-
-## Usage
-
-1. Connect your MetaMask wallet to the Sepolia testnet.
-2. Click "Connect Wallet" in the app to connect your MetaMask account.
-3. To create a new escrow:
-   - Click "New Escrow"
-   - Enter the arbiter address, beneficiary address, and amount
-   - Click "Create Escrow"
-4. To approve or refund an escrow:
-   - Find the escrow in the list
-   - Click "Approve" to release funds to the beneficiary
-   - Click "Refund" to return funds to the depositor
 
 ## Technologies Used
 
