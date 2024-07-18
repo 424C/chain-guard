@@ -36,11 +36,13 @@ function CustodyApp() {
     const loadTimeLocks = async () => {
         setIsLoading(true);
         try {
+            console.log("Loading time locks...");
             const timeLocksList = await Web3Service.getTimeLocks();
+            console.log("Loaded time locks:", timeLocksList);
             setTimeLocks(timeLocksList);
         } catch (error) {
             console.error("Error loading time locks:", error);
-            setError("Failed to load time locks");
+            setError("Failed to load time locks: " + error.message);
         }
         setIsLoading(false);
     };
@@ -75,6 +77,21 @@ function CustodyApp() {
 
     const handleInputChange = (e) => {
         setNewTimeLock({ ...newTimeLock, [e.target.name]: e.target.value });
+    };
+
+    const formatRemainingTime = (seconds) => {
+        if (seconds <= 0) return "Ready for release";
+        
+        const months = Math.floor(seconds / (30 * 24 * 60 * 60));
+        const days = Math.floor((seconds % (30 * 24 * 60 * 60)) / (24 * 60 * 60));
+        const hours = Math.floor((seconds % (24 * 60 * 60)) / (60 * 60));
+        
+        let result = [];
+        if (months > 0) result.push(`${months} month${months !== 1 ? 's' : ''}`);
+        if (days > 0) result.push(`${days} day${days !== 1 ? 's' : ''}`);
+        if (hours > 0) result.push(`${hours} hour${hours !== 1 ? 's' : ''}`);
+        
+        return result.join(', ');
     };
 
     return (
@@ -159,8 +176,8 @@ function CustodyApp() {
                                             <p>Beneficiary: {timeLock.beneficiary}</p>
                                             <p>Amount: {timeLock.amount} ETH</p>
                                             <p>Release Time: {timeLock.releaseTime}</p>
-                                            <p>Remaining Time: {timeLock.remainingTime} months</p>
-                                            {timeLock.remainingTime === 0 && (
+                                            <p>Remaining Time: {formatRemainingTime(timeLock.remainingTime)}</p>
+                                            {timeLock.remainingTime <= 0 && (
                                                 <div className="mt-4">
                                                     <button
                                                         onClick={() => handleRelease(timeLock.address)}

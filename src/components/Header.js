@@ -40,7 +40,7 @@ function Header() {
       <header className="bg-[#1a237e] text-white p-4 shadow-md">
         <div className="container mx-auto flex justify-between items-center">
           <Link to="/" className="text-2xl font-bold hover:text-[#00838f] transition duration-300">
-            ChainGuard Escrow
+            ChainGuard Solutions
           </Link>
           <div className="md:hidden">
             <button onClick={toggleMenu} className="text-white focus:outline-none">
@@ -79,7 +79,7 @@ function Header() {
                       </li>
                       <li>
                         <Link to="/services/multisig" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-300">
-                          MultiSig
+                          MultiSig (Coming soon)
                         </Link>
                       </li>
                     </ul>

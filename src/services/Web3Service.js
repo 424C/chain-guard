@@ -8,7 +8,7 @@ class Web3Service {
     constructor() {
         this.provider = null;
         this.signer = null;
-        this.escrowFactoryAddress = "0x447e9BBfE5010BeF5460De7e4eCcAE186a9cf78c";
+        this.escrowFactoryAddress = "0xE3668696460694C01d50c5A1ab56C6E17fa7FEb5";
         this.timeLockFactoryAddress = "0x3E23F35b523C61af24255F1F81db6A6E26FbAcac";
     }
 
@@ -21,28 +21,33 @@ class Web3Service {
         return false;
     }
 
-    async getFactoryContract() {
+    async getEscrowFactoryContract() {
         if (!this.signer) await this.connect();
-        return new ethers.Contract(this.factoryAddress, EscrowFactory.abi, this.signer);
+        return new ethers.Contract(this.escrowFactoryAddress, EscrowFactory.abi, this.signer);
+    }
+
+    async getTimeLockFactoryContract() {
+        if (!this.signer) await this.connect();
+        return new ethers.Contract(this.timeLockFactoryAddress, TimeLockFactory.abi, this.signer);
     }
 
     async createEscrow(arbiter, beneficiary, amount, durationInDays) {
-        const factory = await this.getFactoryContract();
+        const factory = await this.getEscrowFactoryContract();
         const tx = await factory.createEscrow(arbiter, beneficiary, durationInDays, { value: ethers.parseEther(amount) });
         const receipt = await tx.wait();
-        const event = receipt.logs.find(log => log.fragment.name === 'EscrowCreated');
+        const event = receipt.logs.find(log => log.eventName === 'EscrowCreated');
         return event.args.escrowAddress;
     }
 
     async getEscrows() {
-        const factory = await this.getFactoryContract();
+        const factory = await this.getEscrowFactoryContract();
         const escrowAddresses = await factory.getEscrows();
         const escrows = await Promise.all(escrowAddresses.map(async (address) => {
-            const contract = new ethers.Contract(address, ChainGuardEscrow.abi, this.provider);
+            const contract = new ethers.Contract(address, ChainGuardEscrow.abi, this.signer);
             const arbiter = await contract.arbiter();
             const depositor = await contract.depositor();
             const beneficiary = await contract.beneficiary();
-            const isApproved = await contract.isApproved();
+            const state = await contract.getState();
             const balance = await this.provider.getBalance(address);
             const remainingTime = await contract.getRemainingTime();
             return {
@@ -51,13 +56,13 @@ class Web3Service {
                 depositor,
                 beneficiary,
                 amount: ethers.formatEther(balance),
-                isApproved,
+                state: ['Pending', 'Approved', 'Refunded'][state],
                 remainingTime: Number(remainingTime)
             };
         }));
         return escrows;
     }
-
+    
     async approveEscrow(escrowAddress) {
         const escrow = new ethers.Contract(escrowAddress, ChainGuardEscrow.abi, this.signer);
         const tx = await escrow.approve();
@@ -84,23 +89,40 @@ async createTimeLock(durationInMonths, amount) {
 }
 
 async getTimeLocks() {
-    const factory = await this.getTimeLockFactoryContract();
-    const timeLockAddresses = await factory.getTimeLocks();
-    const timeLocks = await Promise.all(timeLockAddresses.map(async (address) => {
-        const contract = new ethers.Contract(address, TimeLock.abi, this.provider);
-        const beneficiary = await contract.beneficiary();
-        const releaseTime = await contract.releaseTime();
-        const balance = await contract.getBalance();
-        const remainingTime = await contract.getRemainingTime();
-        return {
-            address,
-            beneficiary,
-            releaseTime: new Date(releaseTime * 1000).toLocaleString(),
-            amount: ethers.formatEther(balance),
-            remainingTime: Math.floor(remainingTime / (30 * 24 * 60 * 60)) // Convert to months
-        };
-    }));
-    return timeLocks;
+    try {
+        console.log("Fetching time locks...");
+        const factory = await this.getTimeLockFactoryContract();
+        const timeLockAddresses = await factory.getTimeLocks();
+        console.log("Time lock addresses:", timeLockAddresses);
+
+        const timeLocks = await Promise.all(timeLockAddresses.map(async (address) => {
+            try {
+                const contract = new ethers.Contract(address, TimeLock.abi, this.signer);
+                const beneficiary = await contract.beneficiary();
+                const releaseTime = await contract.releaseTime();
+                const balance = await contract.getBalance();
+                const remainingTime = await contract.getRemainingTime();
+                
+                return {
+                    address,
+                    beneficiary,
+                    releaseTime: new Date(Number(releaseTime) * 1000).toLocaleString(),
+                    amount: ethers.formatEther(balance),
+                    remainingTime: Number(remainingTime) // Keep this in seconds
+                };
+            } catch (error) {
+                console.error(`Error fetching data for time lock at ${address}:`, error);
+                return null;
+            }
+        }));
+
+        const validTimeLocks = timeLocks.filter(lock => lock !== null);
+        console.log("Fetched time locks:", validTimeLocks);
+        return validTimeLocks;
+    } catch (error) {
+        console.error("Error in getTimeLocks:", error);
+        throw error;
+    }
 }
 
 async releaseTimeLock(timeLockAddress) {

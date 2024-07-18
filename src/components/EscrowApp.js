@@ -38,11 +38,13 @@ function EscrowApp() {
     const loadEscrows = async () => {
         setIsLoading(true);
         try {
+            console.log("Fetching escrows...");
             const escrowsList = await Web3Service.getEscrows();
+            console.log("Fetched escrows:", escrowsList);
             setEscrows(escrowsList);
         } catch (error) {
             console.error("Error loading escrows:", error);
-            setError("Failed to load escrows");
+            setError("Failed to load escrows: " + error.message);
         }
         setIsLoading(false);
     };
@@ -99,6 +101,12 @@ function EscrowApp() {
         return `${days}d ${hours}h ${minutes}m`;
     };
 
+    const canRefund = (escrow) => {
+        return escrow.state === 'Pending' && 
+               (address === escrow.arbiter || 
+                (address === escrow.depositor && escrow.remainingTime === 0));
+    };
+
     return (
         <div className="flex flex-col min-h-screen bg-gray-100">
             <Header />
@@ -111,7 +119,7 @@ function EscrowApp() {
                         <span className="block sm:inline"> {error}</span>
                     </div>
                 )}
-
+    
                 {!isConnected ? (
                     <div className="text-center">
                         <button 
@@ -198,7 +206,7 @@ function EscrowApp() {
                                 </button>
                             </div>
                         </form>
-
+    
                         <div className="mt-8">
                             <h2 className="text-2xl font-bold mb-4">Your Escrows</h2>
                             {escrows.length === 0 ? (
@@ -211,21 +219,21 @@ function EscrowApp() {
                                             <p>Arbiter: {escrow.arbiter}</p>
                                             <p>Beneficiary: {escrow.beneficiary}</p>
                                             <p>Amount: {escrow.amount} ETH</p>
-                                            <p>Status: {escrow.isApproved ? 'Approved' : 'Pending'}</p>
+                                            <p>Status: {escrow.state}</p>
                                             <p>Remaining Time: {formatRemainingTime(escrow.remainingTime)}</p>
-                                            {!escrow.isApproved && (
+                                            {escrow.state === 'Pending' && (
                                                 <div className="mt-4">
                                                     <button
                                                         onClick={() => handleApprove(escrow.address)}
                                                         className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2"
-                                                        disabled={isLoading}
+                                                        disabled={isLoading || address !== escrow.arbiter}
                                                     >
                                                         Approve
                                                     </button>
                                                     <button
                                                         onClick={() => handleRefund(escrow.address)}
                                                         className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                                                        disabled={isLoading || escrow.remainingTime > 0}
+                                                        disabled={isLoading || !canRefund(escrow)}
                                                     >
                                                         Refund
                                                     </button>
@@ -238,7 +246,7 @@ function EscrowApp() {
                         </div>
                     </div>
                 )}
-
+    
                 {isLoading && (
                     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
                         <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>

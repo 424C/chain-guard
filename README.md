@@ -20,14 +20,15 @@ Used for creating custody contracts with a specified beneficiary, amount, and du
 - Create custody contracts with specified beneficiary and amount
 - Lock funds for a specified duration
 - Release funds to the beneficiary after the duration has passed
-- Real-time updates on custody status (WIP)
+- Real-time updates on custody status
 
 ## Screenshot
-![Screenshot 1](src/assets/home.png)
+![Screenshot 1](src/assets/landing.png)
 ![Screenshot 2](src/assets/escrow.png)
+![Screenshot 3](src/assets/custody.png)
 
 ## Sepolia Deployment
-- [EscrowFactory](https://sepolia.etherscan.io/address/0x447e9BBfE5010BeF5460De7e4eCcAE186a9cf78c)
+- [EscrowFactory](https://sepolia.etherscan.io/address/0xe3668696460694c01d50c5a1ab56c6e17fa7feb5)
 - [TimeLockFactory](https://sepolia.etherscan.io/address/0x3E23F35b523C61af24255F1F81db6A6E26FbAcac)
 
 

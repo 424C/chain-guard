@@ -10,8 +10,8 @@ function LandingPage() {
       <Header />
       <main className="flex-grow container mx-auto px-4 py-8">
         <div className="text-center mb-16 bg-gradient-to-r from-blue-500 to-purple-600 p-12 rounded-lg shadow-2xl text-white">
-          <h2 className="text-5xl font-extrabold mb-6 leading-tight">Secure Blockchain Escrow</h2>
-          <p className="text-2xl mb-10 font-light">Trustless transactions guarded by the chain</p>
+          <h2 className="text-5xl font-extrabold mb-6 leading-tight">Blockchain Escrow</h2>
+          <p className="text-2xl mb-10 font-light">Smart contract based escrow solution</p>
           <div className="space-x-6">
             <Link to="/app" className="bg-white text-blue-600 hover:bg-blue-100 font-bold py-3 px-8 rounded-full text-xl transition duration-300 shadow-md hover:shadow-lg">
               Launch App
@@ -22,6 +22,21 @@ function LandingPage() {
           </div>
         </div>
 
+        {/* New Custodial Timelock Section */}
+        <div className="text-center mb-16 bg-gradient-to-r from-green-500 to-teal-600 p-12 rounded-lg shadow-2xl text-white">
+          <h2 className="text-5xl font-extrabold mb-6 leading-tight">Custodial Timelock</h2>
+          <p className="text-2xl mb-10 font-light">Time-based fund locking with permissionless release</p>
+          <div className="space-x-6">
+            <Link to="/custody" className="bg-white text-green-600 hover:bg-green-100 font-bold py-3 px-8 rounded-full text-xl transition duration-300 shadow-md hover:shadow-lg">
+              Launch App
+            </Link>
+            <Link to="/learn-more-timelock" className="bg-transparent hover:bg-white hover:text-green-600 text-white font-bold py-3 px-8 rounded-full text-xl transition duration-300 border-2 border-white">
+              Learn More
+            </Link>
+          </div>
+        </div>
+
+        {/* Rest of the existing content */}
         <div className="grid md:grid-cols-2 gap-8 mb-16">
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <h3 className="text-xl font-bold mb-4 text-center">Purpose Built for Our Clients</h3>

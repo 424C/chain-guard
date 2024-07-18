@@ -20,7 +20,7 @@ function LearnMorePage() {
         </section>
 
         <section className="mb-12 bg-white p-8 rounded-lg shadow-lg">
-          <h2 className="text-3xl font-bold mb-6 text-[#1a237e]">The Ethereum-Based Escrow Solution</h2>
+          <h2 className="text-3xl font-bold mb-6 text-[#1a237e]">The Ethereum Escrow Solution</h2>
           <ul className="list-disc pl-6 space-y-4">
             <li>Smart contracts ensure automatic, trustless execution of escrow terms</li>
             <li>Transparent and immutable transaction records on the blockchain</li>
@@ -32,11 +32,10 @@ function LearnMorePage() {
         </section>
 
         <section className="mb-12 bg-white p-8 rounded-lg shadow-lg">
-          <h2 className="text-3xl font-bold mb-6 text-[#1a237e]">Future-Proofing with Ethereum</h2>
+          <h2 className="text-3xl font-bold mb-6 text-[#1a237e]">Future Proofing with Ethereum</h2>
           <ul className="list-disc pl-6 space-y-4">
-            <li>Scalability improvements with Ethereum 2.0 and Layer 2 solutions</li>
             <li>Growing ecosystem of decentralized finance (DeFi) applications</li>
-            <li>Interoperability with other blockchain networks</li>
+            <li>Interoperability with other layer 2 networks</li>
             <li>Continuous development and improvement of the Ethereum network</li>
             <li>Increasing mainstream adoption of blockchain technology</li>
           </ul>

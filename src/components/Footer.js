@@ -6,7 +6,7 @@ function Footer() {
     <footer className="bg-[#1a237e] text-white p-6 shadow-md">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
         <div className="mb-4 md:mb-0">
-          <p>&copy; {new Date().getFullYear()} ChainGuard Escrow. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} ChainGuard Solutions. All rights reserved.</p>
         </div>
         <div className="flex space-x-4">
           <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#00838f] transition duration-300">
