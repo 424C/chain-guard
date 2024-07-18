@@ -6,6 +6,7 @@ import LearnMorePage from './components/LearnMorePage';
 import LearnMoreTimelock from './components/LearnMoreTimelock';
 import AboutPage from './components/AboutPage';
 import CustodyApp from './components/CustodyApp';
+import FAQ from './components/FAQ';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/learn-more" element={<LearnMorePage />} />
         <Route path="/learn-more-timelock" element={<LearnMoreTimelock />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/faq" element={<FAQ />} />
       </Routes>
     </Router>
   );

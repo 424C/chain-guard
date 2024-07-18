@@ -42,11 +42,11 @@ function LandingPage() {
             <h3 className="text-xl font-bold mb-4 text-center">Purpose Built for Our Clients</h3>
             <div className="grid grid-cols-2 gap-4">
               {[
-                { icon: FaShieldAlt, title: "Regulatory Compliance" },
+                { icon: FaShieldAlt, title: "Decentralized Security" },
                 { icon: FaFileAlt, title: "Clear Documentation" },
                 { icon: FaHeadset, title: "24/7 Support" },
                 { icon: FaLightbulb, title: "Latest Innovations" },
-                { icon: FaLock, title: "Data Protection" },
+                { icon: FaLock, title: "Immutable Contracts" },
                 { icon: FaUsers, title: "Community-Driven" }
               ].map((item, index) => (
                 <div key={index} className="text-center p-2">

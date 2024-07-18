@@ -86,6 +86,7 @@ function Header() {
                   </div>
                 )}
               </li>
+              <li><Link to="/faq" className="hover:text-[#00838f] transition duration-300">FAQ</Link></li>
               <li><Link to="/contact" className="hover:text-[#00838f] transition duration-300">Contact</Link></li>
             </ul>
           </nav>
@@ -112,6 +113,7 @@ function Header() {
                   </ul>
                 )}
               </li>
+              <li><Link to="/faq" className="block hover:text-[#00838f] transition duration-300" onClick={toggleMenu}>FAQ</Link></li>
               <li><Link to="/contact" className="block hover:text-[#00838f] transition duration-300" onClick={toggleMenu}>Contact</Link></li>
             </ul>
           </nav>
